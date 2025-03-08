@@ -1,0 +1,79 @@
+******************  Comandos *********************
+
+go mod init
+
+go: cannot determine module path for source directory E:\go\src\github.com\rsanchezs151\gbuser (outside GOPATH, module path must be specified)
+
+Example usage:
+        'go mod init example.com/m' to initialize a v0 or v1 module
+        'go mod init example.com/m/v2' to initialize a v2 module
+
+Run 'go help mod init' for more information.
+
+
+// se inicia con este comando
+go mod init github.com/rsanchezs151/gbuser  
+
+
+// Se agrega la funcionalidad lambda con esto:
+go get github.com/aws/aws-lambda-go/lambda
+
+// Se agregan los eventos
+ go get github.com/aws/aws-lambda-go/events
+ 
+// Se hace get de SDK de go
+ go get github.com/aws/aws-sdk-go-v2/aws
+
+ // Se obtiene el config de inicio de sesion para que la lambda trabaje con los recuros de amazon
+ go get github.com/aws/aws-sdk-go-v2/config
+
+ //
+ go get github.com/aws/aws-sdk-go-v2/service/secretsmanager
+
+ // Driver de MYSQL
+go get github.com/go-sql-driver/mysql
+
+
+**************** archivo main.go *******************
+package main
+
+import (
+	lambda "github.com/aws/aws-lambda-go/lambda"
+	events "github.com/aws/aws-lambda-go/events"
+)
+
+func main (){
+	lambda.Start(EjecWSLambda)
+}
+
+func EjecWSLambda(){
+
+}
+
+
+
+**************** archivo aws.go *******************
+
+package awsgo
+
+import (
+	"context"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+)
+
+var Ctx context.Context
+var Cfg aws.Config //aws config estructura que tiene todo lo necesario para configurar el inicio de session
+var err error
+
+func InizializarAWS() {
+	//TODO retorna sin ningun tipo de configuracion
+	Ctx = context.TODO()
+	//Configurar config estructuira de tipo AWSConfig, error tambien tiene valores
+	Cfg, err = config.LoadDefaultConfig(Ctx, config.WithDefaultRegion("us-east-1"))
+
+	if err != nil {
+		panic("Error al cargar la configuration .aws/config" + err.Error())
+	}
+}
