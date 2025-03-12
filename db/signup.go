@@ -19,7 +19,7 @@ func SignUp(sig models.SignUp) error {
 	// permite colocar la intrucion al final de la funcion lo que hara sera cerrar la bd
 	defer Db.Close()
 
-	sentencia := "Inser into users (User_UUID, User_Email, User_DateAdd) VALUES ('" + sig.UserUUID + "','" + sig.UserEmail + "','" + tools.FechaMySQL() + "')"
+	sentencia := "Insert into users (User_Email, User_UUID, User_DateAdd) VALUES ('" + sig.UserEmail + "','" + sig.UserUUID + "','" + tools.FechaMySQL() + "')"
 
 	fmt.Println(sentencia)
 
